@@ -82,7 +82,7 @@ namespace pguifinal
                 // NCSOFT = Western / Japanese Version
                 if (p.MainWindowTitle == "Blade & Soul")
                 {
-                    label1.Text = (p.MainWindowTitle + " | " + p.Id + " | Running");
+                    label1.Text = (p.MainWindowTitle + " | " + p.Id + " | " + p.MainWindowHandle + " | Running");
                     WindowState = FormWindowState.Minimized;
                     Ov = new Overlay();
                     Ov.Show();
@@ -90,7 +90,7 @@ namespace pguifinal
                 // NCSOFT = Chinese / Taiwanese Version
                 else if (p.MainWindowTitle == "劍靈")
                 {
-                    label1.Text = (p.MainWindowTitle + " | " + p.Id + " | Running");
+                    label1.Text = (p.MainWindowTitle + " | " + p.Id + " | " + p.MainWindowHandle + " | Running");
                     WindowState = FormWindowState.Minimized;
                     Ov = new Overlay();
                     Ov.Show();

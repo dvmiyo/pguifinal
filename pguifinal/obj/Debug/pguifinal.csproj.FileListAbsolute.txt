@@ -19,5 +19,3 @@ C:\Users\Shogun\documents\visual studio 2015\Projects\pguifinal\pguifinal\obj\De
 C:\Users\Shogun\documents\visual studio 2015\Projects\pguifinal\pguifinal\obj\Debug\pguifinal.csproj.GenerateResource.Cache
 C:\Users\Shogun\documents\visual studio 2015\Projects\pguifinal\pguifinal\obj\Debug\pguifinal.exe
 C:\Users\Shogun\documents\visual studio 2015\Projects\pguifinal\pguifinal\obj\Debug\pguifinal.pdb
-C:\Users\Shogun\documents\visual studio 2015\Projects\pguifinal\pguifinal\bin\Debug\pguifinal.exe.CodeAnalysisLog.xml
-C:\Users\Shogun\documents\visual studio 2015\Projects\pguifinal\pguifinal\bin\Debug\pguifinal.exe.lastcodeanalysissucceeded

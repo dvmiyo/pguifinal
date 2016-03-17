@@ -112,6 +112,10 @@ namespace pguifinal
 
         private void WindowCheck()
         {
+            string ChineseTitle = "劍靈";
+            byte[] bytes = Encoding.Default.GetBytes(ChineseTitle);
+            ChineseTitle = Encoding.UTF8.GetString(bytes);
+
             while (!m_StopThread)
             {
                 if (GetActiveWindowTitle() == "Blade & Soul")
@@ -122,7 +126,7 @@ namespace pguifinal
                         Show();
                     });
                 }
-                else if (GetActiveWindowTitle() == "劍靈")
+                else if (GetActiveWindowTitle() == ChineseTitle)
                 {
                     Invoke((MethodInvoker)delegate
                     {
