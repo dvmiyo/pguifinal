@@ -39,9 +39,9 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -84,7 +84,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(376, 185);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Ping Overlay";
+            this.tabPage2.Text = "Latency Monitor";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // label1
@@ -137,7 +137,7 @@
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(376, 185);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "No launcher mode";
+            this.tabPage3.Text = "Damage Monitor";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // tabPage4
@@ -162,15 +162,15 @@
             this.tabPage5.Text = "Update";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // button4
             // 
-            this.button3.Location = new System.Drawing.Point(8, 125);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(121, 23);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "Check for updates";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button4.Location = new System.Drawing.Point(8, 154);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(121, 23);
+            this.button4.TabIndex = 2;
+            this.button4.Text = "Manual update";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // label2
             // 
@@ -181,15 +181,15 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Version label";
             // 
-            // button4
+            // button3
             // 
-            this.button4.Location = new System.Drawing.Point(8, 154);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(121, 23);
-            this.button4.TabIndex = 2;
-            this.button4.Text = "Manual update";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button3.Location = new System.Drawing.Point(8, 125);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(121, 23);
+            this.button3.TabIndex = 0;
+            this.button3.Text = "Check for updates";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Main
             // 

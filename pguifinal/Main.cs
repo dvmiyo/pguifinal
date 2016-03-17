@@ -17,15 +17,19 @@ namespace pguifinal
         public Main()
         {
             InitializeComponent();
-
-            // We check for an auto updater event here
+            // Check for update event
             AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
+            // Fill label with version information
             label2.Text = ("You are using version " + Application.ProductVersion);
+            // Disable button 2
             button2.Enabled = false;
         }
 
+        // Store form handle
         private Overlay Ov;
 
+        #region [ Autoupdate Handler ]
+        // Event handler for autoupdater
         private void AutoUpdaterOnCheckForUpdateEvent(UpdateInfoEventArgs args)
         {
             if (args != null)
@@ -65,13 +69,17 @@ namespace pguifinal
                 MessageBoxButtons.OK);
             }
         }
+        #endregion
 
+        #region [ Client Check ]
+        // Check if client is running to prevent user errors
         private void CheckForClient()
         {
             Process[] processes = Process.GetProcessesByName("Client");
 
             foreach (Process p in processes)
             {
+                // NCSOFT = Western / Japanese Version
                 if (p.MainWindowTitle == "Blade & Soul")
                 {
                     label1.Text = (p.MainWindowTitle + " | " + p.Id + " | Running");
@@ -79,6 +87,7 @@ namespace pguifinal
                     Ov = new Overlay();
                     Ov.Show();
                 }
+                // NCSOFT = Chinese / Taiwanese Version
                 else if (p.MainWindowTitle == "劍靈")
                 {
                     label1.Text = (p.MainWindowTitle + " | " + p.Id + " | Running");
@@ -88,12 +97,15 @@ namespace pguifinal
                 }
                 else
                 {
+                    // Throw an error if we did not find the client
                     label1.Text = "Unable to detect client";
                     MessageBox.Show("Could not detect the client");
                 }
             }
         }
+        #endregion
 
+        #region [ Buttons ]
         private void button1_Click(object sender, EventArgs e)
         {
             CheckForClient();
@@ -119,5 +131,6 @@ namespace pguifinal
         {
             Process.Start("https://www.dvmiyo.com");
         }
+        #endregion
     }
 }
