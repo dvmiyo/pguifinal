@@ -61,6 +61,17 @@
                 Set if RemindLaterAt interval should be in Minutes, Hours or Days.
             </summary>
         </member>
+        <member name="T:AutoUpdaterDotNET.AutoUpdater.CheckForUpdateEventHandler">
+            <summary>
+                A delegate type for hooking up update notifications.
+            </summary>
+            <param name="args">An object containing all the parameters recieved from AppCast XML file. If there will be an error while looking for the XML file then this object will be null.</param>
+        </member>
+        <member name="E:AutoUpdaterDotNET.AutoUpdater.CheckForUpdateEvent">
+            <summary>
+                An event that clients can use to be notified whenever the update is checked.
+            </summary>
+        </member>
         <member name="M:AutoUpdaterDotNET.AutoUpdater.Start">
             <summary>
                 Start checking for new version of application and display dialog to the user if update is available.
@@ -76,17 +87,6 @@
             <summary>
                 Opens the Download window that download the update and execute the installer when download completes.
             </summary>
-        </member>
-        <member name="E:AutoUpdaterDotNET.AutoUpdater.CheckForUpdateEvent">
-            <summary>
-                An event that clients can use to be notified whenever the update is checked.
-            </summary>
-        </member>
-        <member name="T:AutoUpdaterDotNET.AutoUpdater.CheckForUpdateEventHandler">
-            <summary>
-                A delegate type for hooking up update notifications.
-            </summary>
-            <param name="args">An object containing all the parameters recieved from AppCast XML file. If there will be an error while looking for the XML file then this object will be null.</param>
         </member>
         <member name="T:AutoUpdaterDotNET.UpdateInfoEventArgs">
             <summary>
