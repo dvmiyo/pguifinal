@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WinFormsDragMove</name>
+    </assembly>
+    <members>
+        <member name="T:WinFormsDragMove.DragMoveProvider">
+            <summary>
+            Provides an extra property for controls to enable or disable the DragMove behavior.
+            </summary>
+        </member>
+        <member name="M:WinFormsDragMove.DragMoveProvider.#ctor">
+            <summary>
+            Initializes a new instance of the DragMoveProvider class without a specified container.
+            </summary>
+        </member>
+        <member name="M:WinFormsDragMove.DragMoveProvider.#ctor(System.ComponentModel.IContainer)">
+            <summary>
+            Initializes a new instance of the DragMoveProvider class with a specified container.
+            <param name="container">An IContainer that represents the container of the DragMoveProvider.</param>
+            </summary>
+        </member>
+        <member name="M:WinFormsDragMove.DragMoveProvider.CanExtend(System.Object)">
+            <summary>
+            Renvoie true si le DragMoveProvider peut fournir une propriété d'extension à l'objet cible spécifié.
+            </summary>
+            <param name="extendee">L'objet cible auquel ajouter une propriété d'extension.</param>
+            <returns>true si le DragMoveProvider peut fournir une ou plusieurs propriété d'extensions ; sinon, false.</returns>
+        </member>
+        <member name="M:WinFormsDragMove.DragMoveProvider.GetEnableDragMove(System.Windows.Forms.Control)">
+            <summary>
+            Retrieves a value indicating whether the DragMove behavior is enabled on the specified control.
+            </summary>
+            <param name="control">The Control for which to retrieve DragMove status</param>
+            <returns>true if the DragMove behavior is enabled for this control ; otherwise, false.</returns>
+        </member>
+        <member name="M:WinFormsDragMove.DragMoveProvider.SetEnableDragMove(System.Windows.Forms.Control,System.Boolean)">
+            <summary>
+            Enable or disables the DragMove behavior for the specified control.
+            </summary>
+            <param name="control">The control for which to enable or disable the DragMove behavior.</param>
+            <param name="value">A value indicating if the DragMove behavior must be enabled or disabled for this control.</param>
+        </member>
+        <member name="F:WinFormsDragMove.DragMoveProvider.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:WinFormsDragMove.DragMoveProvider.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:WinFormsDragMove.DragMoveProvider.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:WinFormsDragMove.DragMoveExtensions">
+            <summary>
+            Provides extension methods for automatic dragging of Windows Forms controls
+            </summary>
+        </member>
+        <member name="M:WinFormsDragMove.DragMoveExtensions.DragMove(System.Windows.Forms.Control)">
+            <summary>
+            Temporarily enables the DragMove behavior for the specified control, until the mouse button is released.
+            </summary>
+            <param name="ctl">The control to drag</param>
+        </member>
+        <member name="M:WinFormsDragMove.DragMoveExtensions.EnableDragMove(System.Windows.Forms.Control,System.Boolean)">
+            <summary>
+            Enables or disables the DragMove behavior for the specified control.
+            </summary>
+            <param name="ctl">The control for which the DragMove behavior must be enabled or disabled</param>
+            <param name="value">A value indicating whether to enable or disable the DragMove behavior</param>
+        </member>
+        <member name="M:WinFormsDragMove.DragMoveExtensions.IsDragMoveEnabled(System.Windows.Forms.Control)">
+            <summary>
+            Checks whether the DragMove behavior is enabled for the specified control
+            </summary>
+            <param name="ctl">The control to check</param>
+            <returns>true if DragMove is enabled for this control; otherwise, false</returns>
+        </member>
+    </members>
+</doc>

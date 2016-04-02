@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace pguifinal
@@ -54,60 +54,130 @@ namespace pguifinal
         }
         #endregion
 
-        public Overlay()
+        Main _parentForm = null;
+
+        public Overlay(Main parentForm1)
         {
             InitializeComponent();
+            _parentForm = parentForm1;
         }
 
         public volatile bool m_StopThread;
 
         #region [ THREADS ]
-        Thread thread1;
         Thread thread2;
         #endregion
 
         private void Overlay_Load(object sender, EventArgs e)
         {
-            thread1 = new Thread(Pingloop);
             thread2 = new Thread(WindowCheck);
-
-            thread1.IsBackground = true;
-            thread1.Start();
             thread2.IsBackground = true;
             thread2.Start();
+            runTimer();
         }
 
-        private void Pingloop()
+        public class Strings
         {
-            while (!m_StopThread)
+            // Get Blade and Soul directory from registry
+            public static string GamePathWestern = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\NCWest\BnS", "BaseDir", null);
+            public static string GamePathTaiwan = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\NCTaiwan\TWBNS22", "BaseDir", null);
+            public static string GamePathChina = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Tencent\BNS", "InstallPath", null);
+        }
+
+        public static FileInfo GetNewestFile(DirectoryInfo directory)
+        {
+            // Get the latest log file
+            return directory.GetFiles()
+                .Union(directory.GetDirectories().Select(d => GetNewestFile(d)))
+                .OrderByDescending(f => (f == null ? DateTime.MinValue : f.LastWriteTime))
+                .FirstOrDefault();
+        }
+
+        // Store form handle
+        public System.Timers.Timer aTimer = new System.Timers.Timer(10000);
+
+        public void runTimer()
+        {
+            aTimer.Elapsed += new ElapsedEventHandler(RunEvent);
+            aTimer.Interval = 3000;
+            aTimer.Enabled = true;
+        }
+
+        // This method will get called every second until the timer stops or the program exits.
+        public void RunEvent(object source, ElapsedEventArgs e)
+        {
+            string ChineseTitle = "劍靈";
+            byte[] bytes = Encoding.Default.GetBytes(ChineseTitle);
+            ChineseTitle = Encoding.UTF8.GetString(bytes);
+
+            if (this.InvokeRequired)
+                Invoke(new MethodInvoker(delegate ()
             {
-                var sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                var ip = IPGlobalProperties.GetIPGlobalProperties();
-                foreach (var tcp in ip.GetActiveTcpConnections())
-                    if (tcp.RemoteEndPoint.Port == 10100)
+                if (_parentForm.comboBox1.Text == "North America")
+                {
+                    if (GetActiveWindowTitle() == "Blade & Soul")
                     {
-                        string raddress = tcp.RemoteEndPoint.Address.ToString();
-                        var times = new List<double>();
-                        TcpClient cli = new TcpClient();
-                        cli.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-                        cli.Client.NoDelay = false;
-                        var endpoint = new IPEndPoint(IPAddress.Any, 0);
-                        cli.Client.Bind(endpoint);
-                        var stopwatch = new Stopwatch();
-                        stopwatch.Start(); // Start 
-                        cli.Client.Connect(raddress, 10100);
-                        stopwatch.Stop(); // Stop
-                        cli.Client.Close();
-                        double t = stopwatch.Elapsed.TotalMilliseconds;
-                        times.Add(t);
-                        this.Invoke((MethodInvoker)delegate
-                        {
-                            customLabel1.Text = string.Format("{0:0.00} MS", t);
-                        });
-                        break;
+                        FileInfo newestFile = GetNewestFile(new DirectoryInfo(Strings.GamePathWestern + @"\log\"));
+                        string GameLogs = Strings.GamePathWestern + @"\log\" + newestFile;
+                        var lastLine = File.ReadLines(GameLogs).Last();
+                        // Invoke((MethodInvoker)delegate
+                        // {
+                        var patternworld = @"(ping latency| min| max| avg) :( \d+)|[\S\s]";
+                        var replacedworld = Regex.Replace(lastLine, patternworld, "$1$2");
+                        customLabel1.Text = "LATENCY: " + replacedworld.ToUpper();
+                        // });
                     }
-                Thread.Sleep(3000);
+                }
+             
+
+            else if (_parentForm.SelectedComboValue == "Europe")
+            {
+                if (GetActiveWindowTitle() == "Blade & Soul")
+                {
+                    FileInfo newestFile = GetNewestFile(new DirectoryInfo(Strings.GamePathWestern + @"\log\"));
+                    string GameLogs = Strings.GamePathWestern + @"\log\" + newestFile;
+                    var lastLine = File.ReadLines(GameLogs).Last();
+                    Invoke((MethodInvoker)delegate
+                    {
+                        var patternworld = @"(ping latency| min| max| avg) :( \d+)|[\S\s]";
+                        var replacedworld = Regex.Replace(lastLine, patternworld, "$1$2");
+                        customLabel1.Text = "LATENCY: " + replacedworld.ToUpper();
+                    });
+                }
             }
+
+            else if (_parentForm.comboBox1.Text == "Taiwan")
+            {
+                if (GetActiveWindowTitle() == ChineseTitle)
+                {
+                    FileInfo newestFile = GetNewestFile(new DirectoryInfo(Strings.GamePathTaiwan + @"\log\"));
+                    string GameLogs = Strings.GamePathTaiwan + @"\log\" + newestFile;
+                    var lastLine = File.ReadLines(GameLogs).Last();
+                    Invoke((MethodInvoker)delegate
+                    {
+                        var patternworld = @"(ping latency| min| max| avg) :( \d+)|[\S\s]";
+                        var replacedworld = Regex.Replace(lastLine, patternworld, "$1$2");
+                        customLabel1.Text = "LATENCY: " + replacedworld.ToUpper();
+                    });
+                }
+            }
+
+            else if (_parentForm.comboBox1.Text == "China")
+            {
+                if (GetActiveWindowTitle() == ChineseTitle)
+                {
+                    FileInfo newestFile = GetNewestFile(new DirectoryInfo(Strings.GamePathChina + @"\log\"));
+                    string GameLogs = Strings.GamePathChina + @"\log\" + newestFile;
+                    var lastLine = File.ReadLines(GameLogs).Last();
+                    Invoke((MethodInvoker)delegate
+                    {
+                        var patternworld = @"(ping latency| min| max| avg) :( \d+)|[\S\s]";
+                        var replacedworld = Regex.Replace(lastLine, patternworld, "$1$2");
+                        customLabel1.Text = "LATENCY: " + replacedworld.ToUpper();
+                    });
+                }
+            }
+            }));
         }
 
         private void WindowCheck()
@@ -142,7 +212,7 @@ namespace pguifinal
                         Hide();
                     });
                 }
-                Thread.Sleep(4000);
+                Thread.Sleep(6000);
             }
         }
     }

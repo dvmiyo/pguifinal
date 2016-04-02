@@ -28,22 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.customLabel1 = new pguifinal.CustomLabel();
+            this.dragMoveProvider1 = new WinFormsDragMove.DragMoveProvider(this.components);
             this.SuspendLayout();
             // 
             // customLabel1
             // 
             this.customLabel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.customLabel1.AutoSize = true;
-            this.customLabel1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dragMoveProvider1.SetEnableDragMove(this.customLabel1, true);
+            this.customLabel1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.customLabel1.ForeColor = System.Drawing.Color.White;
             this.customLabel1.Location = new System.Drawing.Point(12, 9);
             this.customLabel1.Name = "customLabel1";
-            this.customLabel1.Size = new System.Drawing.Size(90, 13);
+            this.customLabel1.Size = new System.Drawing.Size(136, 13);
             this.customLabel1.TabIndex = 0;
-            this.customLabel1.Text = "Latency Counter";
+            this.customLabel1.Text = "Latency Counter World";
             this.customLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.customLabel1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            this.customLabel1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
             // 
             // Overlay
             // 
@@ -72,5 +75,6 @@
         #endregion
 
         private CustomLabel customLabel1;
+        private WinFormsDragMove.DragMoveProvider dragMoveProvider1;
     }
 }
